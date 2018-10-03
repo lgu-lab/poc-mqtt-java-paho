@@ -3,28 +3,29 @@ package org.demo.paho;
 import java.util.UUID;
 
 import org.eclipse.paho.client.mqttv3.IMqttClient;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-public class Subscriber implements AutoCloseable{
+public abstract class MqttAbstractClient implements AutoCloseable {
+
+	protected final static int      DEFAULT_QOS = 0;
+	protected final static boolean  DEFAULT_RETAINED = false ;
 	
-	private final String topicFilter ;
+//	private final String serverURI ;
 	private final String clientId ;
 	private final IMqttClient client ;
-	//private final MqttCallback callback ;
+	private final MqttConnectOptions options ;
 	
-	public Subscriber(String serverURI, String topicFilter, MqttCallback callback ) throws MqttException {
+	public MqttAbstractClient(String serverURI) throws MqttException {
 		super();
-		this.topicFilter = topicFilter;
+//		this.serverURI = serverURI;
 		this.clientId = UUID.randomUUID().toString() ;
 		this.client = new MqttClient(serverURI, clientId);
-		//this.callback = callback ;
-		this.client.setCallback(callback);
+		this.options = getDefaultOptions();
 	}
-	
-	private MqttConnectOptions getOptions() {
+
+	private MqttConnectOptions getDefaultOptions() {
 		// Connect options
 		MqttConnectOptions connectOptions = new MqttConnectOptions();
 		connectOptions.setAutomaticReconnect(true);
@@ -35,33 +36,35 @@ public class Subscriber implements AutoCloseable{
 		return connectOptions;
 	}
 
+	protected void checkConnected() throws MqttException {
+		if ( ! isConnected() ) {
+			// Connection 
+			client.connect(options);
+		}
+	}
+
+	protected IMqttClient getMqttClient() {
+		return client ;
+	}
+	
+	public MqttConnectOptions getOptions() {
+		return options;
+	}
+	
 	public boolean isConnected() {
 		return client.isConnected(); 
 	}
 
-	public void subscribe() throws MqttException {
-			
-			// Check if connected 
-			if ( ! client.isConnected() ) {
-				// Connection 
-				client.connect(getOptions());
-			}
-			
-			// Subscribe 
-			client.subscribe(topicFilter);
-			
-	}
-	
 	@Override
 	public void close() { 
 		try {
 			if ( client.isConnected() ) {
 				client.disconnect();
 			}
-			client.close(); // Cannot re-connect
+			client.close(); // Cannot re-connect after close
 		} catch (MqttException e) {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 }

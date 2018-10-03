@@ -13,9 +13,8 @@ public class SubscriberMain {
 
 	public static void main(String[] args) {
 		
-		try ( Subscriber subscriber = new Subscriber(SERVER_URI, TOPIC) ) {
-			// publisher = new PahoPublisher(SERVER_URI, TOPIC);
-			System.out.println("Publisher created. \n");
+		try ( Subscriber subscriber = new Subscriber(SERVER_URI, TOPIC, new SubscriberCallback()) ) {
+			System.out.println("Subscriber created. \n");
 
 			System.out.println("Connected ? : " + subscriber.isConnected());
 
