@@ -8,7 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-public class HelloPahoPublisher {
+public class Publisher implements AutoCloseable {
 
 	private final static int      DEFAULT_QOS = 0;
 	private final static boolean  DEFAULT_RETAINED = false ;
@@ -18,7 +18,7 @@ public class HelloPahoPublisher {
 	private final String clientId ;
 	private final IMqttClient client ;
 	
-	public HelloPahoPublisher(String serverURI, String topic) throws MqttException {
+	public Publisher(String serverURI, String topic) throws MqttException {
 		super();
 //		this.serverURI = serverURI;
 		this.topic = topic;
@@ -41,11 +41,16 @@ public class HelloPahoPublisher {
 		return client.isConnected(); 
 	}
 
-	public void close() throws MqttException {
-		if ( client.isConnected() ) {
-			client.disconnect();
+	@Override
+	public void close() { // throws Exception { // throws MqttException {
+		try {
+			if ( client.isConnected() ) {
+				client.disconnect();
+			}
+			client.close(); // Cannot re-connect
+		} catch (MqttException e) {
+			throw new RuntimeException(e);
 		}
-		client.close(); // Cannot re-connect
 	}
 	
 	public void publish(String message) throws MqttException {
