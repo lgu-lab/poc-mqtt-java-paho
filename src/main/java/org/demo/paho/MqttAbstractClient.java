@@ -14,7 +14,7 @@ public abstract class MqttAbstractClient implements AutoCloseable {
 	
 //	private final String serverURI ;
 	private final String clientId ;
-	private final IMqttClient client ;
+	protected final IMqttClient client ;
 	private final MqttConnectOptions options ;
 	
 	public MqttAbstractClient(String serverURI) throws MqttException {

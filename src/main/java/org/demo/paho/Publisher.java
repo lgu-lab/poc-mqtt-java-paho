@@ -7,6 +7,12 @@ public class Publisher extends MqttAbstractClient {
 
 	private final String topic ;
 	
+	/**
+	 * Constructor
+	 * @param serverURI
+	 * @param topic
+	 * @throws MqttException
+	 */
 	public Publisher(String serverURI, String topic) throws MqttException {
 		super(serverURI);
 		this.topic = topic;
@@ -39,7 +45,7 @@ public class Publisher extends MqttAbstractClient {
 		checkConnected();
 
 		// Publish 
-		getMqttClient().publish(topic, mqttMessage);
+		client.publish(topic, mqttMessage);
 	}
 
 }
