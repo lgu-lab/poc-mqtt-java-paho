@@ -9,7 +9,11 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 public abstract class MqttAbstractClient implements AutoCloseable {
 
+	/**
+	 * Quality of Service used in subclasses (publish/subscribe)
+	 */
 	protected final static int      DEFAULT_QOS = 0;
+	
 	protected final static boolean  DEFAULT_RETAINED = false ;
 	
 //	private final String serverURI ;

@@ -13,7 +13,7 @@ public class PublisherMain {
 		
 		System.out.println("PUBLISHER : Server = " + SERVER_URI + "  (topic : " + TOPIC + ") \n" );
 		
-		//PahoPublisher publisher = null ;
+		// Publisher implements "Autoclosable" 
 		try ( Publisher publisher = new Publisher(SERVER_URI, TOPIC) ) {
 			// publisher = new PahoPublisher(SERVER_URI, TOPIC);
 			System.out.println("Publisher created. \n");
