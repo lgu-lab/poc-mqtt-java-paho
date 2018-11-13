@@ -1,8 +1,9 @@
-package org.demo.paho.steps;
+package org.demo.paho.old;
 
 import java.io.IOException;
 import java.util.UUID;
 
+import org.demo.paho.steps.SubscriberPrintCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 

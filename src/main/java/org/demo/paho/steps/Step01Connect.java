@@ -1,18 +1,16 @@
 package org.demo.paho.steps;
 
-import java.util.UUID;
-
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class Step01Connect {
 
+	private final static String SERVER_URI = "tcp://localhost:1883" ;
+	private final static String CLIENT_ID  = "ClientIdTestConnection" ;
+
 	public static void main(String[] args) throws MqttException, InterruptedException {
 
-		// String clientId = UUID.randomUUID().toString() ;		
-		String clientId = "ClientIdstep1" ;		
-		MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId);
+		MqttClient client = new MqttClient(SERVER_URI, CLIENT_ID);
 		
 		client.connect();
 
@@ -25,18 +23,15 @@ public class Step01Connect {
 //		client.connect(connectOptions);
 		
 		System.out.println("Connected");
+		// datastore creation (.lck)
 		
-		System.out.println("Sleeping...");
-		Thread.sleep(4000);
+		// Wait
+		System.out.println("Waiting for user input...");
+		Tooling.waitUserInput();
 		
 		client.disconnect();
 		System.out.println("Disconnected");
 		
-		client.close(); // Arret des threads
-			
+		client.close(); // Arret des threads + clean datastore (.lck)		
 	}
-
-//	MqttConnectOptions options ;
-//	client.connect(options);
-	
 }
