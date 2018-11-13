@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-public class Step3PublishQOS2 {
+public class StepXPublishQOS2 {
 
 	public static void main(String[] args) throws MqttException, InterruptedException {
 
