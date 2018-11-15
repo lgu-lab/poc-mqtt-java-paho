@@ -20,12 +20,26 @@ public class PublishInCloudQoS0 {
 		client.connect();
 		System.out.println("Connected");
 
-		for ( int i = 1 ; i <= 500 ; i++ ) {
+		try {
+			while(true) {
+				publish(client, 500);
+			}
+		} catch (InterruptedException e) {
+			System.out.println("InterruptedException");
+			client.disconnect();
+			System.out.println("Disconnected");			
+			client.close(); // Arret des threads
+		}
+		
+	}
+	
+	static void publish(MqttClient client, int max) throws MqttException, InterruptedException {
+		for ( int i = 1 ; i <= max ; i++ ) {
 			
 			String msg = "?" ;
 			String topic = "jug/nantes" ;
 			if ( i % 2 == 0 ) {
-				msg = "Hello " + i ;
+				msg = "Hello Java " + i ;
 				topic = "jug/nantes/txt" ;
 			}
 			else {
@@ -43,10 +57,5 @@ public class PublishInCloudQoS0 {
 			// Wait
 			Thread.sleep(1000);
 		}
-
-		client.disconnect();
-		System.out.println("Disconnected");
-		
-		client.close(); // Arret des threads
 	}
 }
