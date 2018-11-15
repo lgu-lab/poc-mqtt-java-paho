@@ -1,0 +1,1 @@
+mosquitto_sub -v -h localhost -t a/b/c
