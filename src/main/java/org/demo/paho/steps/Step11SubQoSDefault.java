@@ -23,7 +23,7 @@ public class Step11SubQoSDefault {
 		client.setCallback(new SubscriberPrintCallback());
 		
 		// Subscribe
-		System.out.println("Subscribing with default QoS ");
+		System.out.println("Subscribing with default QoS : topic = '" + TOPIC + "' ");
 		client.subscribe(TOPIC); // QoS = default = 1
 		
 		// Wait

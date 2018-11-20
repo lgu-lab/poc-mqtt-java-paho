@@ -20,10 +20,10 @@ public class Step02Publish {
 		for ( int i = 1 ; i <= 500 ; i++ ) {
 			
 			// New message
-			String msg = "Hello " + i ;
+			String msg = "Hello Nantes " + i ;
 			MqttMessage mqttMessage = new MqttMessage(msg.getBytes());
 
-			System.out.println("#" + i + " : Publishing message : " + msg );
+			System.out.println("#" + i + " : Publishing message : " + msg + " (topic = '" +TOPIC+"' )" );
 			// Publish 
 			client.publish(TOPIC, mqttMessage);
 			

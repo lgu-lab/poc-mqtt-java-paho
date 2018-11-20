@@ -23,14 +23,15 @@ public class Step11PubQoSDefault {
 		for ( int i = 1 ; i <= 500 ; i++ ) {
 			
 			// New message
-			String msg = "Hello " + i ;
+			String msg = "Hello Nantes " + i ;
 			MqttMessage mqttMessage = new MqttMessage(msg.getBytes());
 			// Message options
 			//mqttMessage.setQos(0);
 			//mqttMessage.setRetained(false);
 			//mqttMessage.setId(messageId);
 
-			System.out.println("#" + i + " : Publishing message (default QoS) : " + msg );
+			System.out.println("#" + i + " : Publishing message (default QoS) : " + msg + " (topic = '" +TOPIC+"' )" );
+			
 			// Publish 
 			client.publish(TOPIC, mqttMessage);
 			
