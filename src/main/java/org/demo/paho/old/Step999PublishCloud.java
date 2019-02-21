@@ -1,4 +1,4 @@
-package org.demo.paho.cloud;
+package org.demo.paho.old;
 
 import java.util.UUID;
 

@@ -5,12 +5,12 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class Step01Connect {
 
-	private final static String SERVER_URI = "tcp://localhost:1883" ;
+	//private final static String SERVER_URI = "tcp://localhost:1883" ;
 	private final static String CLIENT_ID  = "ClientIdTestConnection" ;
 
 	public static void main(String[] args) throws MqttException, InterruptedException {
 
-		MqttClient client = new MqttClient(SERVER_URI, CLIENT_ID);
+		MqttClient client = new MqttClient(Config.SERVER_URI, CLIENT_ID);
 		
 		client.connect();
 
